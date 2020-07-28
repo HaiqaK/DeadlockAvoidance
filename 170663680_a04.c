@@ -17,3 +17,11 @@ Repsository: https://github.com/HaiqaK/CP386_A04
 #include <sys/stat.h>
 #include <time.h>
 #include <semaphore.h> 
+
+#define FILE_NAME "sameple4_in.txt"
+
+int available;
+int maximum;
+int allocated;
+int need; 
+int customer;
