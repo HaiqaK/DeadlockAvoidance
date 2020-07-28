@@ -20,8 +20,37 @@ Repsository: https://github.com/HaiqaK/CP386_A04
 
 #define FILE_NAME "sameple4_in.txt"
 
-int available;
-int maximum;
-int allocated;
-int need; 
+int *available; // number available resources  
+int **maximum; // max number of processes 
+int **allocated; // amount allocated per customer
+int **need; // customer need
 int customer;
+int resource;
+int *sequence;
+
+
+int readFile(char* fileName);
+void *threadRun(void *t);
+int *safetySeq();
+void spd(int *data, int a);         // single pointer data
+void dpd(int **data, int a, int b); // double pointer dadta
+
+int **readFile(char *fileName)
+{
+}
+
+int main(int argc, char *argv[])
+{
+}
+
+void *threadRun(void *t)
+{
+}
+
+void spd(int *data, int a)
+{
+}
+
+void dpd(int **data, int a, int b)
+{
+}
