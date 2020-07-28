@@ -6,4 +6,4 @@ warnings_OK: *.c
 	gcc -Wall -g -std=gnu99 -o Assignment_2 *.c -lrt -lpthread
 	
 clean: *.c
-	rm Assignment_2
+	rm Assignment_4
