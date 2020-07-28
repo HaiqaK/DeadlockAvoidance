@@ -1,8 +1,8 @@
-# CP386_A04
+## CP386_A04
 
-# Motivation 
+## Motivation 
 
-# Installation
+## Installation
 1. Download the repository onto your system
 2. Rename makefile.mk to makefile, run:
 ```bash
@@ -21,6 +21,7 @@ this will compile your program with warning enabled but not fatal. If successful
 ```bash
 ./Assignment_4 a b c ... y z 
 ``` 
-# Screenshots
+## Screenshots
 
-# Authors 
+## Authors 
+Haiqa Khurshid
