@@ -61,7 +61,7 @@ int **readFile(char *fileName)
     char *command = NULL;
     char *fileCopy = (char *) malloc((strlen(fileContent) + 1) * sizeof(char));
     strcpy(fileCopy, fileContent);
-    command = strtok(fileCpy), "\r\n");
+    command = strtok(fileCopy, "\r\n");
     while(command != NULL)
     {
         customer++;
@@ -70,7 +70,7 @@ int **readFile(char *fileName)
     strcpy(fileCopy, fileContent);
     char *lines[customer];
     int i = 0;
-    commmand = strtok(fileCopy, "\r\n");
+    command = strtok(fileCopy, "\r\n");
     while (command != NULL)
     {
         lines[i] = malloc(sizeof(command) * sizeof(char));
@@ -102,6 +102,40 @@ int main(int argc, char *argv[])
 
 void *threadRun(void *t)
 {
+   int *thread = (int *)t; // thread id
+   // print what would show after command 'Run'
+   printf("--> Customer/Thread %d\n", *thread);
+   
+   printf("     Allocated Resources: ");
+   // allocaed resource output
+   for (int i = 0; i < resource ; i++) {
+       printf("%d ", allocated[*thread][i]);
+   } 
+   
+   printf("     Needed: ");
+   // needed output
+   for(int i = 0; i < resource; i++) {
+       printf("%d ", need[*thread][i]);
+   }
+
+   printf("     Available: ");
+   // avaiable resources outoput
+   for (int i = 0; i < available; i ++){
+       printf("%d ", available[*thread][i]);
+   }
+
+   printf("     Thread has started\n");
+   printf("     Thread has finished\n");
+   printf("     Thread is releasing resources\n");
+
+   printf("     New Available: ");
+   // new available resources outout
+   for (int i = 0; i < resource; i++){
+       available[*thread][i] += allocated[*thread][i];
+       printf("%d ", available[*thread][i]);
+   }
+
+   pthread_exit(NULL);
 }
 
 void spd(int *data, int a)
