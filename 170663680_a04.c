@@ -20,10 +20,10 @@ Repsository: https://github.com/HaiqaK/CP386_A04
 
 #define FILE_NAME "sameple4_in.txt"
 
-int *available; // number available resources  
-int **maximum; // max number of processes 
-int **allocated; // amount allocated per customer
-int **need; // customer need
+int *available;     // number available resources  
+int **maximum;      // max number of processes 
+int **allocated;    // amount allocated per customer
+int **need;         // customer need
 int customer;
 int resource;
 int *sequence;
@@ -76,7 +76,7 @@ int **readFile(char *fileName)
         lines[i] = malloc(sizeof(command) * sizeof(char));
         strcpy(lines[i], command);
         i++;
-        command = strtok(NULL, "\r\n"):
+        command = strtok(NULL, "\r\n");
     }
     int **maximum = malloc(sizeof(int *) * customer);
     for (int j = 0; j < customer; j++)
@@ -89,7 +89,7 @@ int **readFile(char *fileName)
         {
             temp[k] = atoi(token);
             k++;
-            token = strtok(NULL, ",")
+            token = strtok(NULL, ",");
         }
         maximum[j] = temp;
     }
@@ -138,10 +138,29 @@ void *threadRun(void *t)
    pthread_exit(NULL);
 }
 
+int *safetySeq(){   // function is used to contain safety algroithm that will be used when calling parts of program
+
+    int *done = mallic(sizeof(int) * customer);
+    int *sequence = malloc(sizeof(int) * customer);
+    int *wrok = malloc(sizeof(int) * resource);
+    for(int i = 0; i < resource; i ++){     // what is avialble to work
+        wrok[i] = available[*thread][i];
+    }
+
+}
+
 void spd(int *data, int a)
 {
+    for (int i = 0; i < a; i++){
+        printf("%d", data[i]);
+    }
 }
 
 void dpd(int **data, int a, int b)
 {
+    for (int i = 0; i < a; i ++){
+        for (int j = 0; j < b; j ++){
+            printf("%d", data[i][j]);
+        }
+    }
 }
