@@ -17,8 +17,8 @@ Repsository: https://github.com/HaiqaK/CP386_A04
 #include <sys/stat.h>
 #include <time.h>
 #include <semaphore.h> 
-
 #define FILE_NAME "sameple4_in.txt"
+#define MAX_INPUT_SIZE 256
 
 int *available;     // number available resources  
 int **maximum;      // max number of processes 
@@ -98,6 +98,72 @@ int **readFile(char *fileName)
 
 int main(int argc, char *argv[])
 {
+    if (argc < 2)
+    {
+        printf("Needs more parameters...\n");
+        return -1;
+    }
+    resource = argc -1;
+
+    // available array initialization 
+    available = malloc(sizeof(int) + resource);
+    for(int i = 1; i < argc; i++)
+    {
+        available[i-1] = atoi(argc[i]);
+    }
+
+    // max array initialization 
+    maximum = readFile(FILE_NAME); // read file, assign values
+
+    // allocated array 
+    allocated = malloc(sizeof(int *) * customer);
+    for(int i = 0; i < customer; i++){
+        allocated[i] = malloc(sizeof(int) * resource);
+    }
+
+    // need array
+    need = malloc(sizeof(int *) * customer);
+    for (int i = 0; i < customer; i++)
+    {
+        need[i] = malloc(sizeof(int) * resource);
+    }
+
+    int s = 0; // initializing safe (s) as 0 
+
+    char *usersInput = malloc(sizeof(char) * MAX_INPUT_SIZE);
+
+    printf("Number of Customers: %d\n", customer);
+    printf("Currently Available Resources: ");
+    spd(available, resource);
+    printf("Maximum Resourcs from File: \n");
+    dpd(maximum, customer, resource);
+
+    // will run till users input is exit
+    while(1)
+    {
+        printf("Enter Command: ");
+        fgets(usersInput, MAX_INPUT_SIZE, stdin);
+
+        if(strlen(usersInput) > 0 && usersInput[strlen(usersInput)-1] == '\n')
+        {
+            usersInput[strlen(usersInput) - 1] = '\0';
+        }
+
+        if (strstr(usersInput, "RQ"))
+        {
+            int count = 0;
+            int *array = malloc(sizeof(int) * (resource + 1));  // input array
+            char *token = NULL;
+            token = strtok(usersInput, " ");
+            while(token != NULL)
+            {
+                if (count > 0)
+                {
+                    array[count - 1] = atoi(token);
+                }
+            }
+        }
+    }
 }
 
 void *threadRun(void *t)
