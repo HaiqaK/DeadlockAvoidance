@@ -41,12 +41,12 @@ int **readFile(char *fileName)
     if (!in)
     {
         printf("Child A: Error in opening input file... exiting with error code -1\n");
-        return -1;
+        return NULL;
     }
 
     struct stat st;
     fstat(fileno(in), &st);
-    char *fileContent = (char *)mallock(((int)st.st_size + 1) * sizeof(char));
+    char *fileContent = (char *)malloc(((int)st.st_size + 1) * sizeof(char));
     fileContent[0] = '\0';
     while(!feof(in))
     {
@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
     available = malloc(sizeof(int) + resource);
     for(int i = 1; i < argc; i++)
     {
-        available[i-1] = atoi(argc[i]);
+        available[i-1] = atoi(argv[i]);
     }
 
     // max array initialization 
@@ -336,7 +336,7 @@ void *threadRun(void *t)
 
    printf("     Available: ");
    // avaiable resources outoput
-   for (int i = 0; i < available; i ++){
+   for (int i = 0; i < resource; i ++){
        printf("%d ", available[i]);
    }
 
@@ -356,7 +356,7 @@ void *threadRun(void *t)
 
 int *safetySeq(){   // function is used to contain safety algroithm that will be used when calling parts of program
 
-    int *done = mallic(sizeof(int) * customer);
+    int *done = malloc(sizeof(int) * customer);
     int *sequence = malloc(sizeof(int) * customer);
     int *wrok = malloc(sizeof(int) * resource);
     for(int i = 0; i < resource; i ++){     // what is avialble to work
