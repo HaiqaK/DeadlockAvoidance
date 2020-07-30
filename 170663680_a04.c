@@ -221,9 +221,99 @@ int main(int argc, char *argv[])
                 count++;
             }
 
-            
+            int customerAllocated = array[0];
+            // removing allocated array
+            if (customerAllocated < customer && count == resource + 2)
+            {
+                for(int i = 0; i < resource ; i++)
+                {
+                    if (array[i+1] <= allocated[customerAllocated][i])
+                    {
+                        allocated[customerAllocated][i] -= array[i+1];
+                        need[customerAllocated][i] = maximum[customerAllocated][i] - allocated[customerAllocated][i];
+                    }
+                    else 
+                    {
+                        printf("cannot release more resources than allocated.\n");
+                        break;
+                    }
+                }
+            }
+            else 
+            {
+                if (customerAllocated >= customer)
+                {
+                    printf("Threads invalid, try again\n");
+                }
+                else 
+                {
+                    printf("Needs more paramenters, try again.\n");
+                }
+            }
+            free(array);
+            sequence = safetySeq();
+            printf("Request satisfied\n");
+            if(sequence[0] == -1)
+            {
+                s = 0;
+                printf("* Unsafe state *\n");
+            }
+            else
+            {
+                s = 1;
+                printf("State is now safe.\n");
+            }
+        }
+        else if (strstr(usersInput, "*"))
+        {
+            printf("Allocated Resources: \n");
+            dpd(allocated, customer, resource);
+
+            printf("Needed: \n");
+            dpd(need, customer, resource);
+
+            printf("Available: \n");
+            spd(available, resource);
+
+            printf("Maximum Resources:\n");
+            dpd(maximum, customer, resource);
+
+        }
+        else if(strstr(usersInput, "Run"))
+        {
+            sequence = safetySeq();
+            if (s == 1)
+            {
+                for(int i = 0; i < customer; i++)
+                {
+                    int runThread = sequence[i];
+                    pthread_t tid;
+                    pthread_attr_t attr;
+                    pthread_attr_init(&attr);
+                    pthread_create(&tid, &attr, threadRun, (void *) &runThread);
+                    pthread_join(tid, NULL);
+                }
+            }
+            else 
+            {
+                printf("* Unsafe state *\n");
+            }
+        }
+        else if (strstr(usersInput, "exit"))
+        {
+            free(available);
+            free(maximum);
+            free(allocated);
+            free(need);
+            free(sequence);
+            return 0;
+        }
+        else 
+        {
+            printf("\"%s\" is not a valid input, enter one of [\"RQ\",\"RL\",\"*\",\"Run\",\"exit\"].\n", usersInput);
         }
     }
+    return 0; 
 }
 
 void *threadRun(void *t)
