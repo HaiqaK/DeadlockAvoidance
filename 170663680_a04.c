@@ -17,7 +17,7 @@ Repsository: https://github.com/HaiqaK/CP386_A04
 #include <sys/stat.h>
 #include <time.h>
 #include <semaphore.h> 
-#define FILE_NAME "sameple4_in.txt"
+#define FILE_NAME "sample4_in.txt"
 #define MAX_INPUT_SIZE 256
 
 int *available;     // number available resources  
