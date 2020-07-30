@@ -161,7 +161,67 @@ int main(int argc, char *argv[])
                 {
                     array[count - 1] = atoi(token);
                 }
+                token = strtok(NULL, " ");
+                count++;
             }
+
+            // customer to allocated insert into allocaed array
+            int customerAllocated = array[0]; 
+            if(customerAllocated < customer && count == resource + 2)
+            {
+                for(int i = 0; i < resource; i++)
+                {
+                    allocated[customerAllocated][i] = array[i + 1];
+                    need[customerAllocated][i] = maximum[customerAllocated][i] - allocated[customerAllocated][i];
+                    // need has to be positive
+                    if(need[customerAllocated][i] < 0)
+                    {
+                        need[customerAllocated][i] = 0;
+                    }
+                }
+            }
+            else 
+            {
+                if(customerAllocated >= customer)
+                {
+                    printf("Thread invalid, try again.\n");
+                }
+                else
+                {
+                    printf("Needs more paramenters, try again.\n");
+                }
+            }
+            free(array);
+            sequence = safetySeq();
+            printf("REquest is Satisfied\n");
+            if(sequence[0] == -1)
+            {
+                s = 0;
+                printf("* Unsafe state *\n");
+            }
+            else
+            {
+                s = 1;
+                printf("State is now safe.\n");
+            }
+        }
+        else if(strstr(usersInput, "RL"))
+        {
+            int count = 0;
+            int *array = malloc(sizeof(int) * (resource + 1));
+            char *token = NULL;
+            token = strtok(usersInput, " ");
+            while(token != NULL)
+            {
+                if (count > 0)
+                {
+                    array[count - 1] = atoi(token);
+                }
+                token = strtok(NULL, " ");
+                count++;
+            }
+
+            
         }
     }
 }
