@@ -27,7 +27,7 @@ int **need;         // customer need
 int customer;
 int resource;
 int *sequence;
-
+int s;              //safe
 
 int **readFile(char* fileName);
 void *threadRun(void *t);
@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
         need[i] = malloc(sizeof(int) * resource);
     }
 
-    int s = 0; // initializing safe (s) as 0 
+    s = 0; // initializing safe (s) as 0 
 
     char *usersInput = malloc(sizeof(char) * MAX_INPUT_SIZE);
 
@@ -190,17 +190,20 @@ int main(int argc, char *argv[])
             }
             free(array);
             sequence = safetySeq();
-            printf("Request is Satisfied\n");
+            printf("Request is satisfied\n");
+
+            
             if(sequence[0] == -1)
             {
                 s = 0;
-                printf("* Unsafe state *\n");
+                printf("** unsafe state - fix before running.\n");
             }
             else
             {
                 s = 1;
-                printf("State is now safe.\n");
+                printf("** state is safe now\n");
             }
+            
         }
         else if(strstr(usersInput, "RL"))
         {
@@ -250,16 +253,18 @@ int main(int argc, char *argv[])
             free(array);
             sequence = safetySeq();
             printf("Request satisfied\n");
+            
             if(sequence[0] == -1)
             {
                 s = 0;
-                printf("* Unsafe state *\n");
+                printf("** unsafe state - fix before running.\n");
             }
             else
             {
                 s = 1;
-                printf("State is now safe.\n");
+                printf("** state is now safe.\n");
             }
+            
         }
         else if (strstr(usersInput, "*"))
         {
@@ -287,13 +292,13 @@ int main(int argc, char *argv[])
                     pthread_t tid;
                     pthread_attr_t attr;
                     pthread_attr_init(&attr);
-                    pthread_create(&tid, &attr, threadRun, (void *) &runThread);
+                    pthread_create(&tid, &attr, threadRun, (void *)&runThread);
                     pthread_join(tid, NULL);
                 }
             }
             else 
             {
-                printf("* Unsafe state *\n");
+               printf("** unsafe state - fix before running.\n");
             }
         }
         else if (strstr(usersInput, "exit"))
@@ -315,21 +320,21 @@ int main(int argc, char *argv[])
 
 void *threadRun(void *t)
 {
-   int *thread = (int *)t; // thread id
+   int *threadId = (int *)t; // thread id
    // print what would show after command 'Run'
-   printf("--> Customer/Thread %d\n", *thread);
+   printf("--> Customer/Thread %d\n", *threadId);
    
    printf("     Allocated Resources: ");
    // allocaed resource output
    for (int i = 0; i < resource ; i++) {
-       printf("%d ", allocated[*thread][i]);
+       printf("%d ", allocated[*threadId][i]);
    } 
    printf("\n");
 
    printf("     Needed: ");
    // needed output
    for(int i = 0; i < resource; i++) {
-       printf("%d ", need[*thread][i]);
+       printf("%d ", need[*threadId][i]);
    }
     printf("\n");
 
@@ -352,7 +357,7 @@ void *threadRun(void *t)
    printf("     New Available: ");
    // new available resources outout
    for (int i = 0; i < resource; i++){
-       available[i] += allocated[*thread][i];
+       available[i] += allocated[*threadId][i];
        printf("%d ", available[i]);
    }
    printf("\n\n");
