@@ -121,7 +121,7 @@ void *threadRun(void *t)
    printf("     Available: ");
    // avaiable resources outoput
    for (int i = 0; i < available; i ++){
-       printf("%d ", available[*thread][i]);
+       printf("%d ", available[i]);
    }
 
    printf("     Thread has started\n");
@@ -131,8 +131,8 @@ void *threadRun(void *t)
    printf("     New Available: ");
    // new available resources outout
    for (int i = 0; i < resource; i++){
-       available[*thread][i] += allocated[*thread][i];
-       printf("%d ", available[*thread][i]);
+       available[i] += allocated[*thread][i];
+       printf("%d ", available[i]);
    }
 
    pthread_exit(NULL);
@@ -144,9 +144,41 @@ int *safetySeq(){   // function is used to contain safety algroithm that will be
     int *sequence = malloc(sizeof(int) * customer);
     int *wrok = malloc(sizeof(int) * resource);
     for(int i = 0; i < resource; i ++){     // what is avialble to work
-        wrok[i] = available[*thread][i];
+        wrok[i] = available[i];
     }
 
+    int count = 0;
+    while(count < customer){
+        int safe = 0;
+        for (int i = 0; i < customer; i++){
+            if(done[i] == 0){
+                int safety = 1;
+                for (int j = 0; j < resource; j++){
+                    if (need[i][j] > wrok[j]){
+                        safety = 0;
+                        break;
+                    }
+                }
+                if (safety == 1){
+                    done[i] = 1;
+                    sequence[count] = i;
+                    count++;
+                    safe = 1;
+
+                    for(int j = 0; j < resource; j++){
+                        wrok[j] += allocated[i][j];
+                    }
+                }
+            }
+        }
+            if(safe == 0){
+            for(int m = 0; m < customer; m++){
+            sequence[m] = -1;
+            }
+            return sequence;
+        }
+    }
+    return sequence;
 }
 
 void spd(int *data, int a)
