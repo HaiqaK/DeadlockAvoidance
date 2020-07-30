@@ -327,29 +327,39 @@ void *threadRun(void *t)
    for (int i = 0; i < resource ; i++) {
        printf("%d ", allocated[*thread][i]);
    } 
-   
+   printf("\n");
+
    printf("     Needed: ");
    // needed output
    for(int i = 0; i < resource; i++) {
        printf("%d ", need[*thread][i]);
    }
+    printf("\n");
 
    printf("     Available: ");
    // avaiable resources outoput
    for (int i = 0; i < resource; i ++){
        printf("%d ", available[i]);
    }
+   printf("\n");
 
    printf("     Thread has started\n");
-   printf("     Thread has finished\n");
-   printf("     Thread is releasing resources\n");
+   sleep(1);
 
+   printf("     Thread has finished\n");
+   sleep(1);
+
+   printf("     Thread is releasing resources\n");
+   printf(1);
+   
    printf("     New Available: ");
    // new available resources outout
    for (int i = 0; i < resource; i++){
        available[i] += allocated[*thread][i];
        printf("%d ", available[i]);
    }
+   printf("\n\n");
+   sleep(1);
 
    pthread_exit(NULL);
 }
@@ -388,12 +398,16 @@ int *safetySeq(){   // function is used to contain safety algroithm that will be
             }
         }
             if(safe == 0){
-            for(int m = 0; m < customer; m++){
-            sequence[m] = -1;
-            }
-            return sequence;
+                for(int m = 0; m < customer; m++){
+                    sequence[m] = -1;
+                }
+                free(wrok);
+                free(done);
+                return sequence;
         }
     }
+    free(wrok);
+    free(done);
     return sequence;
 }
 
@@ -401,7 +415,10 @@ void spd(int *data, int a)
 {
     for (int i = 0; i < a; i++){
         printf("%d", data[i]);
+        if ( i < a -1)
+            printf(" ");
     }
+    printf("\n");
 }
 
 void dpd(int **data, int a, int b)
@@ -409,6 +426,9 @@ void dpd(int **data, int a, int b)
     for (int i = 0; i < a; i ++){
         for (int j = 0; j < b; j ++){
             printf("%d", data[i][j]);
+            if(j < b -1)
+                printf(" ");
         }
+        printf("\n");
     }
 }
