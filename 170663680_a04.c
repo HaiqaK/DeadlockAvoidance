@@ -37,7 +37,7 @@ void dpd(int **data, int a, int b); // double pointer dadta
 
 int **readFile(char *fileName)
 {
-        FILE *in = fopen(fileName, "r");
+    FILE *in = fopen(fileName, "r");
     if (!in)
     {
         printf("Child A: Error in opening input file... exiting with error code -1\n");
@@ -117,14 +117,11 @@ int main(int argc, char *argv[])
 
     // allocated array 
     allocated = malloc(sizeof(int *) * customer);
-    for(int i = 0; i < customer; i++){
-        allocated[i] = malloc(sizeof(int) * resource);
-    }
-
     // need array
     need = malloc(sizeof(int *) * customer);
     for (int i = 0; i < customer; i++)
     {
+        allocated[i] = malloc(sizeof(int) * resource);
         need[i] = malloc(sizeof(int) * resource);
     }
 
@@ -135,7 +132,7 @@ int main(int argc, char *argv[])
     printf("Number of Customers: %d\n", customer);
     printf("Currently Available Resources: ");
     spd(available, resource);
-    printf("Maximum Resourcs from File: \n");
+    printf("Maximum Resourcs from File:\n");
     dpd(maximum, customer, resource);
 
     // will run till users input is exit
@@ -193,7 +190,7 @@ int main(int argc, char *argv[])
             }
             free(array);
             sequence = safetySeq();
-            printf("REquest is Satisfied\n");
+            printf("Request is Satisfied\n");
             if(sequence[0] == -1)
             {
                 s = 0;
@@ -350,8 +347,8 @@ void *threadRun(void *t)
    sleep(1);
 
    printf("     Thread is releasing resources\n");
-   printf(1);
-   
+   sleep(1);
+
    printf("     New Available: ");
    // new available resources outout
    for (int i = 0; i < resource; i++){
