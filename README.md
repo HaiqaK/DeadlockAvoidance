@@ -1,6 +1,9 @@
 # CP386 - Operating Systems - Assignment 4
 
 ## Motivation 
+
+Assignment 4 for Operating Systems (CP-386) at Wilfrid Laurier University 
+
 ## Installation
 
 1. Download the repository onto your system
