@@ -24,6 +24,40 @@
 
 ## Screenshots
 
+![image](https://i.paste.pics/9PNNQ.png)
+![image](https://i.paste.pics/9PNNU.png)
+
+## Individual Contribution 
+
+All function - Haiqa Khurshid
+
+## Features
+
+* RQ - Allocated Resources
+* RL - Release Resources 
+* * - Current State
+* Run - Current Sequence 
+* Exit - Exit Program
+
+## Tests
+
+Refer to Screenshots
+
+## Code Example 
+
+Functions :
+```
+  int **readFile(char* fileName);
+  void *threadRun(void *t);
+  int *safetySeq();
+  void spd(int *data, int a);         // single pointer data
+  void dpd(int **data, int a, int b); // double pointer dadta
+```
+
 ## Authors 
 Haiqa Khurshid
 Github: @HaiqaK
+
+## Credits 
+
+## License 
