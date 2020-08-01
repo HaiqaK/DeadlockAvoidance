@@ -38,7 +38,7 @@ All function - Haiqa Khurshid
 
 * RQ - Allocated Resources
 * RL - Release Resources 
-* * - Current State
+* '*' - Current State
 * Run - Current Sequence 
 * Exit - Exit Program
 
